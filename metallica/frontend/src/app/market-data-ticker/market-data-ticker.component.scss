@@ -1,0 +1,13 @@
+.market-data-ticker{
+    width: 90%;
+    display: inline-block;
+    white-space: nowrap;
+    
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+  
+    mat-form-field {
+      width:20%;
+      padding-left: 2%;
+    }
+  }

@@ -1,0 +1,66 @@
+
+
+.search-button {
+  float: right;
+}
+
+.trade-search-result-card{
+  max-height: 600px;
+  float: left;
+}
+
+.trade-search-result-table{
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 600px;
+}
+
+.trade-edit-card {
+  min-width: 30%;
+  float: right;
+  max-height: 600px;
+}
+
+.trade-edit-form{
+  height: 600px;
+}
+
+.trade-edit-form-group{
+  margin: 5% 10% 10% 10%;
+
+  mat-form-field{
+    width: 100%;
+  }
+
+  button {
+    float: right;
+  }
+}
+
+.trade-search-card{
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+table{
+  width: 100%;
+}
+
+.add-overlay{
+  position: absolute;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}
+
+
+.horizontal-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-toolbar{
+  height: 50px;
+}
+
+.highlight{
+  background: #f5f5f5;
+}

@@ -1,0 +1,20 @@
+<h3 mat-dialog-title>Please provide your credentails</h3>
+
+<mat-error *ngIf="data.error">{{data.error}}</mat-error>
+
+<div mat-dialog-content>
+  <p>User name</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.username">
+  </mat-form-field>
+
+  <p>password</p>
+    <mat-form-field>
+        <input type="password" matInput [(ngModel)]="data.password">
+    </mat-form-field>
+</div>
+ 
+<div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button (click)="onLogin(data)">Login</button>
+</div>

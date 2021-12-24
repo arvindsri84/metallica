@@ -1,0 +1,201 @@
+  <mat-card class="trade-search-card">
+          <table class="full-width trade-search-table" cellspacing="0">
+            <tr>
+              <td>
+                  <mat-form-field >
+                    <input matInput [matDatepicker]="fromDatePicker" placeholder="Trade ( From date )" 
+                      [(ngModel)]="tradeSearchCrieria.fromTradeDate">
+                    <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #fromDatePicker></mat-datepicker>
+                  </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput [matDatepicker]="toDatePicket" placeholder="Trade ( To date )"
+                    [(ngModel)]="tradeSearchCrieria.toTradeDate">
+                  <mat-datepicker-toggle matSuffix [for]="toDatePicket"></mat-datepicker-toggle>
+                  <mat-datepicker #toDatePicket></mat-datepicker>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field >
+                  <mat-select placeholder="Comodity" [(ngModel)]="tradeSearchCrieria.comodity">
+                    <mat-option *ngFor="let comodity of refdataService.comodities" [value]="comodity.code">
+                      {{ comodity.description }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+              <td>
+                  <mat-checkbox [(ngModel)]="tradeSearchCrieria.buySide">Buy</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="tradeSearchCrieria.sellSide">Sell</mat-checkbox>
+              </td>
+              <td>
+                <mat-form-field >
+                  <mat-select placeholder="Counterparty" [(ngModel)]="tradeSearchCrieria.counterparty">
+                    <mat-option *ngFor="let conterparty of refdataService.counterparties" [value]="conterparty.code">
+                      {{ conterparty.description }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field >
+                  <mat-select placeholder="Location" [(ngModel)]="tradeSearchCrieria.location">
+                    <mat-option *ngFor="let location of refdataService.locations" [value]="location.code" >
+                      {{ location.description }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                  <div class="button-row search-button">
+                    <button mat-button (click)="onTradeSearchClear(tradeSearchCrieria)">Clear</button>
+                    <button mat-button color="primary" (click)="onTradeSearch(tradeSearchCrieria)">Search</button>
+                  </div>
+                <td>
+            </tr>
+        </table>
+  </mat-card>
+
+  <br/>
+
+  <mat-card class="trade-search-result-card"
+    [style.min-width]="tradeElement != null ? '60%' : '96%'"
+  >
+
+      <button mat-icon-button class="add-overlay" (click)="onTradeAdd()">
+          <mat-icon>add</mat-icon>
+      </button>  
+
+      <mat-table class="trade-search-result-table" #table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="tradeDate">
+            <mat-header-cell *matHeaderCellDef> Trade Date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.tradeDate}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="comodity">
+            <mat-header-cell *matHeaderCellDef> Comodity </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.comodity}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="side">
+            <mat-header-cell *matHeaderCellDef> Side </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.side}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="quantity">
+            <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.quatity}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="counterparty">
+            <mat-header-cell *matHeaderCellDef> Counterparty </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.counterparty}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="location">
+            <mat-header-cell *matHeaderCellDef> Location </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.location}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"
+            [ngClass]="{'highlight': selectedRowIndex == row.tradeId}"
+            (click)="onSelection(row)"
+          ></mat-row>
+        </mat-table>
+      
+  </mat-card>
+
+  <mat-card class="trade-edit-card" *ngIf="tradeElement">
+      <div class="trade-edit-form" >
+          <mat-toolbar>
+              <span>Trade ID: {{tradeElement.tradeId}}</span>
+              <span class="horizontal-spacer"></span>
+              <button mat-icon-button *ngIf="editMode == supportedModes.EDITABLE" (click)="onTradeEdit()">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button *ngIf="editMode == supportedModes.EDITABLE || editMode == supportedModes.EDIT" (click)="onTradeDelete()">
+                <mat-icon>delete</mat-icon>
+              </button>
+          </mat-toolbar>
+
+        <div class="trade-edit-form-group">
+
+          <mat-form-field>
+            <input matInput [matDatepicker]="tradeDatePicker" placeholder="Trade date " 
+            [(ngModel)]="tradeElement.tradeDateAsDate"
+            [disabled]="editMode == supportedModes.EDITABLE">
+            <mat-datepicker-toggle matSuffix [for]="tradeDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #tradeDatePicker></mat-datepicker>
+          </mat-form-field>
+          <br/>
+
+          <mat-form-field >
+            <mat-select placeholder="Comodity" 
+            [(ngModel)]="tradeElement.comodity"
+            [disabled]="editMode == supportedModes.EDITABLE">
+              <mat-option *ngFor="let comodity of refdataService.comodities" [value]="comodity.code" >
+              {{ comodity.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br/>
+
+          <mat-radio-group [(ngModel)]="tradeElement.side" [disabled]="editMode == supportedModes.EDITABLE">
+            <mat-radio-button value="BUY">Buy</mat-radio-button>
+            <mat-radio-button value="SELL">Sell</mat-radio-button>
+          </mat-radio-group>
+          <br/>
+          <br/>
+
+          <mat-form-field >
+            <mat-select placeholder="Counterparty" [(ngModel)]="tradeElement.counterparty"
+            [disabled]="editMode == supportedModes.EDITABLE">
+              <mat-option *ngFor="let conterparty of refdataService.counterparties" [value]="conterparty.code">
+              {{ conterparty.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br/>
+
+          <mat-form-field>
+            <input matInput placeholder="Price" [(ngModel)]="tradeElement.price"
+            [disabled]="editMode == supportedModes.EDITABLE">
+            <span matPrefix>$&nbsp;</span>
+            <span matSuffix>.00</span>
+          </mat-form-field>
+          <br/>
+
+          <mat-form-field>
+            <input matInput placeholder="Quantity" [(ngModel)]="tradeElement.quatity"
+            [disabled]="editMode == supportedModes.EDITABLE">
+            <span matSuffix>MT</span>
+          </mat-form-field>
+          <br/>
+
+          <mat-form-field >
+            <mat-select placeholder="Location" [(ngModel)]="tradeElement.location"
+            [disabled]="editMode == supportedModes.EDITABLE">
+              <mat-option *ngFor="let location of refdataService.locations" [value]="location.code">
+              {{ location.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br/>
+
+          <button mat-button (click)="onTradeEditCancel()" >Cancel</button>
+          <button mat-button color="primary" *ngIf="editMode != supportedModes.EDITABLE" (click)="onTradeSave(tradeElement)" >Save</button>
+
+        </div>
+      </div>    
+</mat-card>

@@ -1,0 +1,53 @@
+{
+	"variables": [],
+	"info": {
+		"name": "OAuth",
+		"_postman_id": "b4897a9d-6807-5a43-0a9e-369b0629ebcc",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TokenRequest",
+			"request": {
+				"url": "http://localhost:8193/oauth/token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bWV0YWxsaWNhLWNsaWVudDptZXRhbGxpY2EtY2xpZW50LXNlY3JldA==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "grant_type=password&username=asri68&password=test"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetUser",
+			"request": {
+				"url": "http://localhost:8193/api/user",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer c8d1fd51-ea41-4236-b417-a22293e09a8d",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

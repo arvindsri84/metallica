@@ -1,0 +1,99 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Trades",
+		"_postman_id": "419a5001-ae03-58f5-48a4-f362b81401c7",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Trade",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8091/api/trade?toDate=02/10/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"api",
+						"trade"
+					],
+					"query": [
+						{
+							"key": "toDate",
+							"value": "02/10/11",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer d2b16471-2b21-42d4-a2a6-7cecde5f2d65",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Trade",
+			"request": {
+				"url": "http://localhost:8091/api/trade/30",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"tradeDate\":\"2010-10-01\",\"comodity\":\"AL\",\"side\":\"BUY\",\"quatity\":20.20,\"price\":\"20.123\",\"counterparty\":\"LDN BANK\",\"location\":\"LDN\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Trade",
+			"request": {
+				"url": "http://localhost:8080/api/trade/v1/1234",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Trade",
+			"request": {
+				"url": "http://localhost:8091/api/trade",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"tradeDate\":\"02/10/2015\",\"comodity\":\"CU\",\"side\":\"SELL\",\"quatity\":13.20,\"price\":\"1324.123\",\"counterparty\":\"LDN BANK\",\"location\":\"LDN\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

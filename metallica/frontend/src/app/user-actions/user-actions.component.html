@@ -1,0 +1,20 @@
+<div class="main-panel-user-actions">
+    <span class="username">{{name == null? "Guest": name}}</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item 
+          (click)="openDialog()" [disabled]="name != null">
+        <span>Login</span>
+        </button>
+
+        <button mat-menu-item 
+        (click)="logout()"
+        [disabled]="name == null">
+        <span>Logout</span>
+        </button>
+      </mat-menu>	
+
+  </div>

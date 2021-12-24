@@ -1,0 +1,13 @@
+
+<div class="market-data-ticker">
+
+  <mat-form-field *ngFor="let data of tickerData">
+    <input matInput value="${{data.price}}" disabled>
+    <mat-placeholder>
+      <mat-icon *ngIf="data.priceMovDirection == 'D'">arrow_downwards</mat-icon> 
+      <mat-icon *ngIf="data.priceMovDirection == 'U'">arrow_upwards</mat-icon> 
+      <i> {{data.description}}</i>
+    </mat-placeholder>
+  </mat-form-field>
+
+</div>
