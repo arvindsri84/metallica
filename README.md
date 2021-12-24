@@ -1,6 +1,6 @@
 # Metallica
 
-A sample fullstack application build in Java 8, SpringBoot and Anugular
+A sample fullstack application build in Java 8, SpringBoot and Angular
 
 ## Steps for Setting up the application locally - 
 
