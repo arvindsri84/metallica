@@ -1,6 +1,6 @@
 # Metallica
 
-A sample fullstack application build in Java 8, SpringBoot and Angular
+A sample fullstack application build in Java 8, Angular and SpringBoot ( using Netflix libraries like Eureka, Zuul, Ribbon and feign )
 
 ## Steps for Setting up the application locally - 
 
